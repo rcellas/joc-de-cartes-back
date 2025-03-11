@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Program;
 use App\Models\Restaurant;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -21,6 +22,17 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Restaurant::factory(10)->create();
+        $restaurants = Restaurant::factory(10)->create();
+
+        $programs= Program::factory(10)->create();
+
+        // Asociar entre 1 y 5 restaurantes aleatorios a cada programa
+        $programs->each(function ($program) use ($restaurants) {
+            // Tomar entre 1 y 5 restaurantes aleatorios
+            $randomRestaurants = $restaurants->random(rand(1, 5));
+
+            // Asociar los restaurantes seleccionados al programa
+            $program->restaurants()->attach($randomRestaurants->pluck('id')->toArray());
+        });
     }
 }

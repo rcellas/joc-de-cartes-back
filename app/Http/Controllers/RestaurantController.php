@@ -17,7 +17,7 @@ class RestaurantController extends Controller
 
     public function show(string $id)
     {
-        $restaurants = Restaurant::find($id);
+        $restaurants = Restaurant::with('programs')->find($id);
         if($restaurants){
             return response()->json($restaurants);
         }else{
@@ -36,7 +36,7 @@ class RestaurantController extends Controller
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
         ]);
-        
+
         $restaurants = Restaurant::create($validated);
         if($restaurants){
             return response()->json($restaurants);
