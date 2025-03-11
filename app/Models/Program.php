@@ -14,8 +14,7 @@ class Program extends Model
         'name',
         'description',
         'year',
-        'season',
-        'restaurant_id',
+        'season'
     ];
 
     public function restaurants()

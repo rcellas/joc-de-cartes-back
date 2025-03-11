@@ -15,10 +15,11 @@ class ProgramController extends Controller
 
     public function show(string $id)
     {
-        $programs = Program::find($id);
-        if($programs){
-            return response()->json($programs);
-        }else{
+        $program = Program::with('restaurants')->find($id);
+
+        if ($program) {
+            return response()->json($program);
+        } else {
             return response()->json(['message' => 'El programa no exiteix a les bases de dades'], 404);
         }
     }
