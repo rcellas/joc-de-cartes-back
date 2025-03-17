@@ -67,14 +67,17 @@ class RestaurantController extends Controller
         }
     }
 
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $restaurants = Restaurant::find($id);
-        if($restaurants){
-            $restaurants->delete();
-            return response()->json(['message' => 'Restaurant eliminat correctament'], $restaurants);
-        }else{
-            return response()->json(['message' => 'El restaurant no exiteix a les bases de dades'], 404);
+        $restaurant = Restaurant::find($id);
+
+        if (!$restaurant) {
+            return response()->json(['message' => 'Restaurant not found'], 404);
         }
+
+        $restaurant->delete();
+        return response()->json(['message' => 'Restaurant eliminat correctament'], 200);  // Cambiar 204 por 200
     }
+
+
 }
