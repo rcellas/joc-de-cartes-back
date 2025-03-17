@@ -27,20 +27,23 @@ class ProgramController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'description' => 'sometimes|string|max:255',
-            'year' => 'sometimes|numeric',
-            'season' => 'sometimes|numeric',
-            'restaurant_id' => 'sometimes|numeric',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'year' => 'required|numeric',
+            'season' => 'required|numeric',
+            'restaurant_id' => 'nullable|numeric',
         ]);
-
-        $programs = Program::create($validated);
-        if($programs){
-            return response()->json($programs,201);
-        }else{
-            return response()->json(['message' => 'No s\'ha pogut crear el programa'], 404);
+        try {
+            $program = Program::create($validated);
+            return response()->json($program, 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'No se pudo crear el programa debido a un error inesperado.',
+                'error' => $e->getMessage(),
+            ], 500);
         }
     }
+
 
     public function update(Request $request, string $id)
     {

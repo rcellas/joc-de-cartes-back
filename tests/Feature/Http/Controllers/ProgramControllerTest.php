@@ -47,4 +47,24 @@ class ProgramControllerTest extends TestCase
         $response->assertStatus(201);
         $response->assertJsonFragment(['name' => 'Test Program']);
     }
+
+    public function testStoreValidationError()
+    {
+        // Datos con un campo requerido faltante (por ejemplo, 'year' está ausente)
+        $data = [
+            'name' => 'Test Program',
+            'description' => 'Test description',
+            // 'year' no está presente, lo que debería causar un error de validación
+            'season' => 4,
+        ];
+
+        $response = $this->postJson('/programs', $data);
+
+        // Esperamos un código de estado 422 (validación fallida) debido a la falta de 'year'
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors('year');
+    }
+
+
+
 }
