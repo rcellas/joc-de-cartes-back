@@ -50,7 +50,6 @@ class ProgramControllerTest extends TestCase
 
     public function testStoreValidationError()
     {
-        // Datos con un campo requerido faltante (por ejemplo, 'year' está ausente)
         $data = [
             'name' => 'Test Program',
             'description' => 'Test description',
@@ -59,10 +58,17 @@ class ProgramControllerTest extends TestCase
         ];
 
         $response = $this->postJson('/programs', $data);
-
-        // Esperamos un código de estado 422 (validación fallida) debido a la falta de 'year'
         $response->assertStatus(422);
         $response->assertJsonValidationErrors('year');
+    }
+
+    public function testUpdate()
+    {
+        $program = Program::factory()->create();
+        $data = ['name' => 'New Name'];
+        $response = $this->putJson("/programs/{$program->id}", $data);
+        $response->assertStatus(200)
+                 ->assertJsonFragment(['name' => 'New Name']);
     }
 
 
