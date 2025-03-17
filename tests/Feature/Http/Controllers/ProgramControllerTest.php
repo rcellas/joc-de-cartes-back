@@ -53,7 +53,6 @@ class ProgramControllerTest extends TestCase
         $data = [
             'name' => 'Test Program',
             'description' => 'Test description',
-            // 'year' no está presente, lo que debería causar un error de validación
             'season' => 4,
         ];
 
