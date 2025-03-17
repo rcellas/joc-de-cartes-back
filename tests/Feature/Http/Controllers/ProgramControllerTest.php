@@ -26,4 +26,11 @@ class ProgramControllerTest extends TestCase
         $response->assertStatus(200)
                  ->assertJsonFragment(['name' => $program->name]);
     }
+
+    public function testShowNotFound()
+    {
+        $response = $this->getJson('/programs/999999');
+        $response->assertStatus(404);
+        $response->assertJsonFragment(['message' => 'El programa no exiteix a les bases de dades']);
+    }
 }
