@@ -79,4 +79,12 @@ class ProgramControllerTest extends TestCase
         $response->assertJsonFragment(['message' => 'El programa no exiteix a les bases de dades']);
     }
 
+    public function testDestroy()
+    {
+        $program = Program::factory()->create();
+        $response = $this->deleteJson("/programs/{$program->id}");
+        $response->assertStatus(200)
+                 ->assertJsonFragment(['id' => $program->id]);
+    }
+
 }
