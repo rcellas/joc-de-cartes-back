@@ -18,4 +18,12 @@ class ProgramControllerTest extends TestCase
         $response->assertStatus(200)
                  ->assertJsonCount(3);
     }
+
+    public function testShow()
+    {
+        $program = Program::factory()->create();
+        $response = $this->getJson("/programs/{$program->id}");
+        $response->assertStatus(200)
+                 ->assertJsonFragment(['name' => $program->name]);
+    }
 }
