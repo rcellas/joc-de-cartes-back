@@ -71,6 +71,12 @@ class ProgramControllerTest extends TestCase
                  ->assertJsonFragment(['name' => 'New Name']);
     }
 
-
+    public function testUpdateNotFound()
+    {
+        $data = ['name' => 'New Name'];
+        $response = $this->putJson('/programs/999999', $data);
+        $response->assertStatus(404);
+        $response->assertJsonFragment(['message' => 'El programa no exiteix a les bases de dades']);
+    }
 
 }
