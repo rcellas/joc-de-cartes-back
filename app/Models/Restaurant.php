@@ -20,8 +20,8 @@ class Restaurant extends Model
         'longitude',
     ];
 
-    public function down()
+    public function programs()
     {
-        Schema::dropIfExists('restaurants');
+        return $this->belongsToMany(Program::class);
     }
 }
