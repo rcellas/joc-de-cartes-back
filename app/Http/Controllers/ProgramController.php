@@ -36,7 +36,7 @@ class ProgramController extends Controller
 
         $programs = Program::create($validated);
         if($programs){
-            return response()->json($programs);
+            return response()->json($programs,201);
         }else{
             return response()->json(['message' => 'No s\'ha pogut crear el programa'], 404);
         }

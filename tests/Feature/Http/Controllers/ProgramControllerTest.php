@@ -33,4 +33,18 @@ class ProgramControllerTest extends TestCase
         $response->assertStatus(404);
         $response->assertJsonFragment(['message' => 'El programa no exiteix a les bases de dades']);
     }
+
+    public function testStore()
+    {
+        $data=[
+            'name'=>'Test Program',
+            'description'=>'Test Description',
+            'year'=>2025,
+            'season'=>4,
+        ];
+
+        $response = $this->postJson('/programs', $data);
+        $response->assertStatus(201);
+        $response->assertJsonFragment(['name' => 'Test Program']);
+    }
 }
