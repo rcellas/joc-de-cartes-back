@@ -22,8 +22,8 @@ class AuthController extends Controller
             'password' => 'required|confirmed|min:8',
         ]);
 
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
         }
 
         $user = new User;

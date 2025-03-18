@@ -47,4 +47,16 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(201)
                     ->assertJsonStructure(['id', 'name', 'email', 'created_at', 'updated_at']);
     }
+
+    public function testRegisterValidationError(){
+        $response = $this->postJson('/api/auth/register', [
+            'name' => 'Test User',
+            'email' => '', // Email vacío para forzar un error
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ]);
+
+        $response->assertStatus(400)
+                 ->assertJson(['email' => ['The email field is required.']]);
+    }
 }
