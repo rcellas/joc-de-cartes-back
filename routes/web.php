@@ -15,11 +15,5 @@ Route::post('/restaurants',[RestaurantController::class, 'store']);
 Route::put('/restaurants/{id}',[RestaurantController::class, 'update']);
 Route::delete('/restaurants/{id}',[RestaurantController::class, 'destroy']);
 
-// programs
-Route::get('/programs',[ProgramController::class, 'index']);
-Route::get('/programs/{id}',[ProgramController::class, 'show']);
-Route::post('/programs',[ProgramController::class, 'store']);
-Route::put('/programs/{id}',[ProgramController::class, 'update']);
-Route::delete('/programs/{id}',[ProgramController::class, 'destroy']);
 
 

@@ -18,9 +18,10 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Admin que luego se eliminará',
+            'email' => 'test2@example.com',
             'password' => bcrypt('password123'),
+            'role' => 'admin',
         ]);
 
 
@@ -28,12 +29,9 @@ class DatabaseSeeder extends Seeder
 
         $programs= Program::factory(10)->create();
 
-        // Asociar entre 1 y 5 restaurantes aleatorios a cada programa
-        $programs->each(function ($program) use ($restaurants) {
-            // Tomar entre 1 y 5 restaurantes aleatorios
-            $randomRestaurants = $restaurants->random(rand(1, 5));
 
-            // Asociar los restaurantes seleccionados al programa
+        $programs->each(function ($program) use ($restaurants) {
+            $randomRestaurants = $restaurants->random(rand(1, 5));
             $program->restaurants()->attach($randomRestaurants->pluck('id')->toArray());
         });
     }

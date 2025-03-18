@@ -51,7 +51,7 @@ class AuthControllerTest extends TestCase
     public function testRegisterValidationError(){
         $response = $this->postJson('/api/auth/register', [
             'name' => 'Test User',
-            'email' => '', // Email vacío para forzar un error
+            'email' => '',
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
