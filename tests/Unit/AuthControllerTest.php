@@ -25,4 +25,14 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(200)
                     ->assertJsonStructure(['access_token', 'token_type', 'expires_in']);
     }
+
+    public function testUserCanNotLoginWithInvalidCredentials(){
+        $response = $this->postJson('/api/auth/login', [
+            'email' => 'test@example.com',
+            'password' => 'invalid-password',
+        ]);
+
+        $response->assertStatus(401)
+                    ->assertJson(['error' => 'Unauthorized']);
+    }
 }
