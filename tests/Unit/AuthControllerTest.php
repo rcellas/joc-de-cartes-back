@@ -35,4 +35,16 @@ class AuthControllerTest extends TestCase
         $response->assertStatus(401)
                     ->assertJson(['error' => 'Unauthorized']);
     }
+
+    public function testRegister(){
+        $response = $this->postJson('/api/auth/register', [
+            'name' => 'Test User',
+            'email' => 'se@example.com',
+            'password' => 'password123',
+            'password_confirmation' => 'password123'
+        ]);
+
+        $response->assertStatus(201)
+                    ->assertJsonStructure(['id', 'name', 'email', 'created_at', 'updated_at']);
+    }
 }
